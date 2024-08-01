@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transmatic RTO Website</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../test.css">
+
+    </Link>
+
+</head>
+
+<body>
+<div id="loading-overlay">
+    <div id="loading-spinner"></div>
+</div>
+<div id="header"></div>
+
+
+<section class="login_1">
+    <div class="login_container">
+        <form id="registration">
+
+            <h3>Rgistaation form</h3>
+            <!--First name-->
+            <div class="box">
+                <label for="firstName" class="fl fontLabel">First Name: </label>
+                <div class="new iconBox">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                </div>
+                <div class="fr">
+                    <input type="text" id="firstName" name="firstName" placeholder="First Name" class="textBox"
+                           autofocus="on"
+                           required>
+                </div>
+                <div class="clr"></div>
+            </div>
+            <!--First name-->
+
+
+            <!--Second name-->
+            <div class="box">
+                <label for="lastName" class="fl fontLabel">Last Name: </label>
+                <div class="fl iconBox"><i class="fa fa-user" aria-hidden="true"></i></div>
+                <div class="fr">
+                    <input type="text" id="lastName" required name="secondName" placeholder="Last Name" class="textBox">
+                </div>
+                <div class="clr"></div>
+            </div>
+            <!--Second name-->
+
+
+            <!-- email  -->
+            <div class="box">
+                <label for="email" class="fl fontLabel"> email: </label>
+                <div class="new iconBox">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                </div>
+                <div class="fr">
+                    <input type="text" id="email" name="userid" placeholder="email id" class="textBox" autofocus="on"
+                           required>
+                    <span id="emailError" class="error"></span>
+                </div>
+                <div class="clr"></div>
+            </div>
+            <!-- userid  -->
+
+
+            <!-- Phone No. -->
+            <div class="box">
+                <label for="phone" class="fl fontLabel"> Phone No.: </label>
+                <div class="fl iconBox"><i class="fa fa-phone-square" aria-hidden="true"></i></div>
+                <div class="fr">
+                    <input type="text" id="phone" required name="phoneNo" id="phoneNo" maxlength="10"
+                           placeholder="Phone No."
+                           class="textBox" oninput="validatePhone()">
+                    <span id="phoneError" class="error"></span>
+                </div>
+                <div class="clr"></div>
+            </div>
+            <!-- Phone No. -->
+            <!---Password------>
+            <div class="box">
+                <label for="password" class="fl fontLabel"> Password </label>
+                <div class="fl iconBox"><i class="fa fa-key" aria-hidden="true"></i></div>
+                <div class="fr">
+                    <input type="Password" id="password" required name="password" placeholder="Password"
+                           class="textBox">
+                </div>
+                <div class="clr"></div>
+            </div>
+            <!---Password---->
+
+            <!---Gender----->
+            <div class="box radio">
+                <label for="male" class="fl fontLabel"> Gender: </label>
+                <input type="radio" id="male" name="Gender" value="Male" required> Male &nbsp; &nbsp; &nbsp; &nbsp;
+                <input type="radio" id="female" name="Gender" value="Female" required> Female
+            </div>
+            <!---Gender--->
+
+
+            <!--Terms and Conditions------>
+            <div class="box terms">
+                <input type="checkbox" name="Terms" required> &nbsp; I accept the terms and conditions
+            </div>
+            <!--Terms and Conditions------>
+
+
+            <!---Submit Button------>
+            <div class="box">
+                <input class="btn-sub" type="submit" name="Submit" class="submit" value="SUBMIT">
+            </div>
+            <!---Submit Button----->
+        </form>
+    </div>
+</section>
+
+
+<div id="footer"></div>
+<script src="/app.js"></script>
+<script src="/include.js"></script>
+<script src="https://kit.fontawesome.com/2a0f3b3ac3.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+    function validatePhone() {
+        const phoneInput = document.getElementById('phone');
+        const phoneError = document.getElementById('phoneError');
+        const phoneRegex = /^\d{10}$/;
+
+        if (!phoneRegex.test(phoneInput.value)) {
+            alertMessage = ' ! Invalid phone number.';
+            phoneError.textContent = alertMessage;
+        } else {
+            phoneError.textContent = '';
+        }
+    }
+
+    function validateEmail() {
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        const emailRegex = /^[a-zA-Z0-9._-]+@gmail\.com$/;
+
+        if (!emailRegex.test(emailInput.value)) {
+            emailError.textContent = ' ! Invalid Gmail address';
+        } else {
+            emailError.textContent = '';
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", e => {
+        axios.get('http://localhost:3000/api/v1/users/me', {withCredentials: true})
+            .then(response => {
+                window.location.href = "/index.html"
+            })
+            .catch(error => {
+            });
+    })
+
+    document.querySelector("form#registration").addEventListener("submit", e => {
+        e.preventDefault()
+        const firstName = document.querySelector("#firstName").value
+        const lastName = document.querySelector("#lastName").value
+        const phoneNo = document.querySelector("#phone").value
+        const email = document.querySelector("#email").value
+        const password = document.querySelector("#password").value
+        const male = document.querySelector("#male").checked
+        const female = document.querySelector("#female").checked
+
+        axios.post('http://localhost:3000/api/v1/users/signUp', {
+            email,
+            phoneNo,
+            firstName,
+            lastName,
+            gender: male ? "M" : "F",
+            password
+        })
+            .then(response => {
+                console.log('Response:', response.data);
+                setCookie("access_token", response.data.token, 2);
+                alert("Logged in successfully")
+                window.location.href = '/index.html'
+            })
+            .catch(error => {
+                if(error.response?.data?.error) {
+                    alert(error.response.data.error);
+                }
+                console.log(error)
+            });
+
+    })
+
+    function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Transmatic RTO Website</title>
+    <link rel="stylesheet" href="/Admin/style.css">
+    <link rel="stylesheet" href="test.css">
+    <link rel="stylesheet" href="/onliServices/divingLSer/lllicense.html">
+</head>
+
+<body>
+    <div id="header"></div>
+    <div id="loading-overlay"><div id="loading-spinner"></div></div>
+
+  
+    <div class="table-wrapper">
+      <h2>Vehical <b>Details</b></h2>
+
+  <table class="table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Vehical No</th>
+          <th>User Id</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Subhash</td>
+          <td>58475234234</td>
+          <td>subhash@gmail.com</td>
+          <td>
+              <a href="#" class="accept">ACCEPT <span class="fa fa-check"></span></a>
+              <a href="#" class="deny">DENY <span class="fa fa-close"></span></a>
+          </td>
+        </tr>
+        <tr>
+          <td>Subhash</td>
+          <td>58475234234</td>
+          <td>subhash@gmail.com</td>
+          <td>
+              <a href="#" class="accept">ACCEPT <span class="fa fa-check"></span></a>
+              <a href="#" class="deny">DENY <span class="fa fa-close"></span></a>
+          </td>
+        </tr>
+        <tr>
+          <td>Subhash</td>
+          <td>58475234234</td>
+          <td>subhash@gmail.com</td>
+          <td>
+              <a href="#" class="accept">ACCEPT <span class="fa fa-check"></span></a>
+              <a href="#" class="deny">DENY <span class="fa fa-close"></span></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+    <div id="footer"></div>
+    <script src="app.js"></script>
+    <script src="include.js"></script>
+    <script src="https://kit.fontawesome.com/2a0f3b3ac3.js"></script>
+   
+    <script>
+        // JavaScript function to redirect to a new page
+        function redirectToPage(pageURL) {
+          window.location.href = pageURL;
+        }       
+      </script>
+      <script>
+         const header = document.querySelector("#header")
+        const footer = document.querySelector("#footer")
+      
+        document.addEventListener("DOMContentLoaded", e => {
+             header.innerHTML = window.header;
+             footer.innerHTML = window.footer;
+        }) 
+      </script>
+</body>
+
+</html>

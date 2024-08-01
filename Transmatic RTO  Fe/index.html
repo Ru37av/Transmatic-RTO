@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transmatic RTO Website</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="test.css">
+    <link rel="stylesheet" href="/onliServices/divingLSer/lllicense.html">
+</head>
+
+<body>
+<div id="loading-overlay">
+    <div id="loading-spinner"></div>
+</div>
+<div id="header"></div>
+
+
+<section id="hero">
+    <div class="slider">
+        <div class="slides">
+            <div class="slide fade">
+                <img src="img/banner/b1.png" style="width:100%">
+            </div>
+            <div class="slide fade">
+                <img src="img/banner/b2.png" style="width:100%">
+            </div>
+            <div class="slide fade">
+                <img src="img/banner/b3.jpg" style="width:100%">
+            </div>
+            <div class="slide fade">
+                <img src="img/banner/b4.jpg" style="width:100%">
+            </div>
+        </div>
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        <div class="dots-container">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+        </div>
+    </div>
+
+</section>
+
+<section id="feature" class="section-p1">
+    <div class="fe-box" onclick="redirectToPage('/onliServices/divingLSer/lllicense.html')">
+        <img src="img/feature/DL.png" alt="">
+        <h6>Driving License</h6>
+    </div>
+    <div class="fe-box" onclick="redirectToPage('/onliServices/divingLSer/DuplicateLicence.html')">
+        <img src="img/feature/ll.png" alt="">
+        <h6>Duplicate License</h6>
+    </div>
+    <div class="fe-box" onclick="redirectToPage('/onliServices/divingLSer/Renewlicense.html')">
+        <img src="img/feature/onlineT.png" alt="">
+        <h6>Renewal License</h6>
+    </div>
+    <div class="fe-box" onclick="redirectToPage('/onliServices/otherSer/Insurence.html')">
+        <img src="img/feature/insurence.png" alt="">
+        <h6>Insurence Services</h6>
+    </div>
+    <div class="fe-box" onclick="redirectToPage('/onliServices/otherSer/Puc.html')">
+        <img src="img/feature/puc.png" alt="">
+        <h6>PUC Services</h6>
+    </div>
+    <div class="fe-box" onclick="redirectToPage('/onliServices/vehicalRelated.html')">
+        <img src="img/feature/vRegistration.png" alt="">
+        <h6>vehicalRelated Services</h6>
+    </div>
+</section>
+
+<Section id="newsletter" class="section-p1 section-m1">
+    <div class="newstext">
+        <h4>Sign up For Transmatic RTO</h4>
+        <p>Get E-mail updates about our New Features And Serives</p>
+    </div>
+    <div class="form">
+        <input type="text" placeholder="You email address">
+        <button class="normal">Sign up</button>
+    </div>
+
+</Section>
+
+<div id="footer"></div>
+<script src="app.js"></script>
+<script src="include.js"></script>
+<script src="https://kit.fontawesome.com/2a0f3b3ac3.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+    // JavaScript function to redirect to a new page
+    function redirectToPage(pageURL) {
+        window.location.href = pageURL;
+    }
+</script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", e => {
+
+        axios.get('http://localhost:3000/api/v1/users/me', {withCredentials: true})
+            .then(response => {
+                console.log('Response:', response.data);
+            })
+            .catch(error => {
+                window.location.href = "/login.html"
+            });
+
+    })
+</script>
+</body>
+
+</html>

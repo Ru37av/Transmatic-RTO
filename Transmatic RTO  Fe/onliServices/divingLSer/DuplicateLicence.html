@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transmatic RTO Website</title>
+    <link rel="stylesheet" href="../../style.css"></Link>
+    <link rel="stylesheet" href="../../test.css"></Link>
+
+    <script src="jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+<div id="loading-overlay">
+    <div id="loading-spinner"></div>
+</div>
+<div id="header"></div>
+
+<div class="llise_ll">
+    <h4 class="">Duplicate License</h4>
+</div>
+
+<section class="form">
+
+    <!-- <h1>Required Documents</h1>
+    1.  FILL APPLICATION DETAILS LL2.  UPLOAD PHOTO AND SIGNATURE (In case of eKYC through Aadhaar, only Signature need to be uploaded)3.  UPLOAD DOCUMENTS4.  FEE PAYMENT5.  VERIFY THE PAYMENT STATUS6.  PRINT THE RECEIPT7.
+    LL SLOT BOOK -->
+
+    <form action="" class="duplicate">
+        <div class="row">
+            <div class="input-container">
+                <input type="text" class="form-control" id="firstName" placeholder="First name" required>
+            </div>
+            <div class="input-container">
+                <input type="text" class="form-control" id="middleName" placeholder="Middle name" required>
+            </div>
+            <div class="input-container">
+                <input type="text" class="form-control" id="lastName" placeholder="Last name" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-container">
+                <input type="text" class="form-control" id="address" placeholder="Address" required>
+            </div>
+            <div class="input-container">
+                <input type="text" class="form-control" id="city" placeholder="city" required>
+            </div>
+            <div class="input-container">
+                <input type="text" class="form-control" id="town" placeholder="Town" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-container">
+                <input type="number" class="form-control" id="age" placeholder="Age" required>
+            </div>
+            <div class="input-container">
+                <input type="text" class="form-control" id="aadharNo" placeholder="Aadhaar number" required>
+            </div>
+            <div class="input-container">
+                <input type="text" class="form-control" id="licenseNo" placeholder="Driving License number"
+                       required>
+            </div>
+        </div>
+        <div class="radio-buttons-based">
+            <div class="radio-buttons">
+                <label for="gender">Gender:</label>
+                <label for="male">Male</label>
+                <input type="radio" id="male" name="gender" value="male">
+                <label for="female">Female</label>
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="other">Other</label>
+                <input type="radio" id="other" name="gender" value="other">
+            </div>
+
+            <div class="checkBox-container">
+
+                <div class="check">
+                    <label for="checkbox">Do use glass or lenses when Drving ?</label>
+                    <input type="checkbox" class="form-control" aria-label="Text input with checkbox">
+                </div>
+                <div class="check">
+                    <label for="checkbox">Do use hear aids ?</label>
+                    <input type="checkbox" class="form-control" aria-label="Text input with checkbox">
+                </div>
+                <div class="check">
+                    <label for="checkbox">Do you have any physical disbilaties ?</label>
+                    <input type="checkbox" class="form-control" aria-label="Text input with checkbox">
+                </div>
+                <div class="check">
+                    <label for="checkbox">DOu you suffer from any serious diesase?</label>
+                    <input type="checkbox" class="form-control" aria-label="Text input with checkbox">
+                </div>
+                <div class="check">
+                    <label for="checkbox">Have you ever been dependant on alcohol ?</label>
+                    <input type="checkbox" class="form-control" aria-label="Text input with checkbox">
+                </div>
+            </div>
+            <input class="btn-sub" type="submit" value="Submit">
+
+    </form>
+
+</section>
+
+
+<div id="footer"></div>
+<script src="/app.js"></script>
+<script src="/include.js"></script>
+<script src="https://kit.fontawesome.com/2a0f3b3ac3.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", e => {
+        axios.get('http://localhost:3000/api/v1/users/me', {withCredentials: true})
+            .then(response => {
+                console.log('Response:', response.data);
+            })
+            .catch(error => {
+                window.location.href = "/login.html"
+            });
+    })
+
+    document.querySelector("form.duplicate")
+        .addEventListener("submit", (e) => {
+            e.preventDefault();
+            const firstName = document.querySelector("#firstName").value
+            const middleName = document.querySelector("#middleName").value
+            const lastName = document.querySelector("#lastName").value
+            const address = document.querySelector("#address").value
+            const city = document.querySelector("#city").value
+            const town = document.querySelector("#town").value
+            const age = document.querySelector("#age").value
+            const aadharNo = document.querySelector("#aadharNo").value
+            const male = document.querySelector("#male").checked
+
+            axios.post('http://localhost:3000/api/v1/licenses/duplicate', {
+                firstName,
+                middleName,
+                lastName,
+                address,
+                city,
+                town,
+                age,
+                aadharNo,
+                gender: male ? "M" : "F"
+            }, {withCredentials: true})
+                .then(response => {
+                    console.log('Response:', response.data);
+                    alert("License request created successfully")
+                    window.location.href = '/index.html'
+                })
+                .catch(error => {
+                    if (error.response?.data?.error) {
+                        alert(error.response.data.error);
+                    }
+                    console.log(error)
+                });
+        })
+</script>
+</body>
+
+</html>

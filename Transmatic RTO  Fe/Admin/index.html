@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Transmatic RTO Website</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="test.css">
+    <link rel="stylesheet" href="/Admin/.html">
+</head>
+
+<body>
+
+  <div id="header"></div>
+  <div id="loading-overlay"><div id="loading-spinner"></div></div>
+
+        
+    </div>
+
+    <h3 class="h3_ad">Admin</h3>
+
+
+    <section id="feature" class="section-p1">
+      <div class="fe-box" onclick="redirectToPage('/Admin/LicPan.html')">
+          <img src="/img/feature/ll.png" alt="">
+          <h6>License Panel</h6>
+      </div>
+      <div class="fe-box" onclick="redirectToPage('/Admin/VehiPan.html')">
+          <img src="/img/feature/vRegistration.png" alt="">
+          <h6>Vehical Panel</h6>
+      </div>
+      <div class="fe-box" onclick="redirectToPage('/Admin/upcomSe.html')">
+          <img src="/img/feature/onlineT.png" alt="">
+          <h6>Upcomeing Services</h6>
+      </div>
+  </section>
+
+
+    <div id="footer"></div>
+    <script src="/Admin/app.js"></script>
+    <script src="/Admin/include.js"></script>
+    <script src="https://kit.fontawesome.com/2a0f3b3ac3.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // JavaScript function to redirect to a new page
+        function redirectToPage(pageURL) {
+          window.location.href = pageURL;
+        }       
+      </script>
+      <script>
+         const header = document.querySelector("#header")
+        const footer = document.querySelector("#footer")
+      
+        document.addEventListener("DOMContentLoaded", e => {
+             header.innerHTML = window.header;
+             footer.innerHTML = window.footer;
+        }) 
+      </script>
+      <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+        </script>
+</body>
+
+</html>
